@@ -18,11 +18,37 @@ export class UserRepository {
     }
 
     async findAll() {
-        return await this.userRepository.find({ where: { isActive: true } });
+        return await this.userRepository.find({
+            select: {
+                password: false,
+                createdAt: true,
+                email: true,
+                id: true,
+                userRole: true,
+                isActive: true
+            }
+        });
     }
 
     async findOne(id: string) {
-        return await this.userRepository.findOne({ where: { id, isActive: true } });
+        return await this.userRepository.findOne({
+            where: {
+                id,
+                isActive: true
+            },
+            select: {
+                password: false,
+                createdAt: true,
+                email: true,
+                id: true,
+                userRole: true,
+                isActive: true
+            }
+        });
+    }
+
+    async existsById(id: string) {
+        return await this.userRepository.existsBy({ id: id });
     }
 
     async update(id: string, updateUserDto: UpdateUserDto) {
