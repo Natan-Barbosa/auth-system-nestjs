@@ -26,9 +26,6 @@ export class UserController {
   async findOne(@Param('id') id: string) {
     this.logger.debug(`Finding user with id: ${id}`);
     const user = await this.userService.findOne(id);
-    if (!user) {
-      this.logger.warn(`User with id: ${id} not found`);
-    }
     this.logger.debug(`User with id: ${id} found`);
     return user;
   }
